@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+
+import 'package:movie_app/Commons/HttpHandler.dart';
+import 'package:movie_app/pages/madia_list.dart';
 
 void main() => runApp(MaterialApp(
     home: MyApp(),
@@ -12,6 +16,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    super.initState();
+    _loadJson();
+
+  }
+
+  _loadJson() async{
+//    var data =  await HttpHandler().fetchMovie();
+//    print(data);
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +46,54 @@ class _MyAppState extends State<MyApp> {
               )
         ],
       ),
-      drawer: Drawer(),
+      body: PageView(
+        children: <Widget>[
+          MediaList()
+        ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text("Drawer Box"),
+              decoration: BoxDecoration(
+                  color: Colors.greenAccent
+              ),
+            ),
+            ListTile(
+              title: Text("Peliculas"),
+              trailing: Icon(
+                  Icons.local_movies,
+                color: Colors.white,
+              ),
+              onTap: (){
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text("Television"),
+              trailing: Icon(
+                  Icons.live_tv,
+                color: Colors.white,
+              ),
+              onTap: (){
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text("Cerrar"),
+              trailing: Icon(
+                  Icons.close,
+                color: Colors.white,
+              ),
+              onTap: (){
+                Navigator.pop(context);
+              },
+            )
+          ],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(items: _getFooterItems(),),
     );
   }
