@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:movie_app/Commons/HttpHandler.dart';
-import 'package:movie_app/pages/TvShowView.dart';
+import 'package:movie_app/Commons/MediaProvider.dart';
+import 'package:movie_app/models/Media.dart';
 import 'package:movie_app/pages/madia_list.dart';
 
 void main() => runApp(MaterialApp(
@@ -17,12 +18,33 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  List<Media> _listMedia = List();
+
 
   @override
   void initState() {
     super.initState();
+    loadMovie();
   }
 
+  void loadMovie() async {
+    var movie = await MovieProvider().fetchMedia();
+
+    setState(() {
+      _listMedia.addAll(movie);
+
+    });
+  }
+
+
+  void loadTvShow() async {
+    var movie = await ShowProvider().fetchMedia();
+
+    setState(() {
+      _listMedia.addAll(movie);
+
+    });
+  }
 
 
 
@@ -43,7 +65,7 @@ class _MyAppState extends State<MyApp> {
       ),
       body: PageView(
         children: <Widget>[
-          MediaList()
+          MediaList(_listMedia)
         ],
       ),
       drawer: Drawer(
@@ -63,8 +85,10 @@ class _MyAppState extends State<MyApp> {
                 color: Colors.white,
               ),
               onTap: (){
-                var route = MaterialPageRoute(builder: (context) => MediaList()) ; // this code can be in parameter without var route
-                Navigator.push(context,route);
+               setState(() {
+                 loadMovie();
+               });
+
               },
             ),
             ListTile(
@@ -74,8 +98,11 @@ class _MyAppState extends State<MyApp> {
                 color: Colors.white,
               ),
               onTap: (){
-                var route = MaterialPageRoute(builder: (context) => TvShowView()) ; // this code can be in parameter without var route
-                Navigator.push(context,route);
+
+                setState(() {
+                  loadTvShow();
+                });
+
               },
             ),
             ListTile(
