@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:movie_app/Commons/HttpHandler.dart';
+import 'package:movie_app/pages/TvShowView.dart';
 import 'package:movie_app/pages/madia_list.dart';
 
 void main() => runApp(MaterialApp(
@@ -20,14 +21,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _loadJson();
-
   }
 
-  _loadJson() async{
-//    var data =  await HttpHandler().fetchMovie();
-//    print(data);
-  }
 
 
 
@@ -68,7 +63,8 @@ class _MyAppState extends State<MyApp> {
                 color: Colors.white,
               ),
               onTap: (){
-                Navigator.pop(context);
+                var route = MaterialPageRoute(builder: (context) => MediaList()) ; // this code can be in parameter without var route
+                Navigator.push(context,route);
               },
             ),
             ListTile(
@@ -78,7 +74,8 @@ class _MyAppState extends State<MyApp> {
                 color: Colors.white,
               ),
               onTap: (){
-                Navigator.pop(context);
+                var route = MaterialPageRoute(builder: (context) => TvShowView()) ; // this code can be in parameter without var route
+                Navigator.push(context,route);
               },
             ),
             ListTile(

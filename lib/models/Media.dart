@@ -14,23 +14,32 @@ class Media {
 
 
   getPosterUrl() => getMediumPictureUrl(poster_path);
+  getBackDropUrl() => getLargePictureUrl(backdrop_path);
+  getGenres() => getGenreValues(genre_ids);
 
-  factory Media(Map map){
+  getYear() => release_date == null || release_date == ""?
+      0 : DateTime.parse(release_date).year;
+
+
+  factory Media(Map<String,dynamic> map,MediaType type){
     try{
-      return Media.fromJsonMap(map);
+      return Media.fromJsonMap(map,type);
     }catch(ex){
       throw ex;
     }
   }
 
-  Media.fromJsonMap(Map map):
+  Media.fromJsonMap(Map<String,dynamic> map,MediaType type):
     poster_path = map["poster_path"]??"",
     overview = map["overview"],
-    release_date = map["release_date"],
+    release_date = map[type==MediaType.MOVIE?"release_date":"first_air_date"],
     genre_ids = map["genre_ids"].toList(),
     id = map["id"],
     title = map["title"],
     backdrop_path = map["backdrop_path"]??"",
     vote_average = map["vote_average"].toDouble();
+}
 
+enum MediaType{
+  MOVIE,TV
 }
