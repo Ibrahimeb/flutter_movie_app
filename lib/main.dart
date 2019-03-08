@@ -19,18 +19,23 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   List<Media> _listMedia = List();
-
+  var title;
 
   @override
   void initState() {
     super.initState();
     loadMovie();
+    title = "movie";
   }
 
   void loadMovie() async {
     var movie = await MovieProvider().fetchMedia();
 
     setState(() {
+      title = "movie";
+      if (_listMedia.length>0)
+        _listMedia.clear();
+
       _listMedia.addAll(movie);
 
     });
@@ -40,7 +45,12 @@ class _MyAppState extends State<MyApp> {
   void loadTvShow() async {
     var movie = await ShowProvider().fetchMedia();
 
+
     setState(() {
+      title = "tv Show";
+      if (_listMedia.length>0)
+        _listMedia.clear();
+
       _listMedia.addAll(movie);
 
     });
@@ -52,7 +62,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("movie_app"),
+        title: Text(title),
         actions: <Widget>[
           IconButton(
               icon: Icon(
@@ -73,10 +83,20 @@ class _MyAppState extends State<MyApp> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text("Drawer Box"),
-              decoration: BoxDecoration(
-                  color: Colors.greenAccent
-              ),
+              child: Container(
+                child: Stack(
+                  children: <Widget>[
+//                    FadeInImage.assetNetwork(
+//                      placeholder: "assets/placeholder.jpg",
+//                      image: _listMedia[6].getBackDropUrl(),
+//                      fit: BoxFit.cover,
+//                      fadeInDuration: Duration(microseconds: 40),
+//                      width: double.infinity,
+//                      height: 200,
+//                    ),
+                  ],
+                ),
+              )
             ),
             ListTile(
               title: Text("Peliculas"),
@@ -88,7 +108,7 @@ class _MyAppState extends State<MyApp> {
                setState(() {
                  loadMovie();
                });
-
+               Navigator.pop(context);
               },
             ),
             ListTile(
@@ -98,11 +118,10 @@ class _MyAppState extends State<MyApp> {
                 color: Colors.white,
               ),
               onTap: (){
-
                 setState(() {
                   loadTvShow();
                 });
-
+                Navigator.pop(context);
               },
             ),
             ListTile(

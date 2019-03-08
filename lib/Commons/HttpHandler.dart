@@ -15,6 +15,7 @@ class HttpHandler {
 
   Future<dynamic> getJson(Uri uri) async {
     http.Response response = await http.get(uri);
+
     print(response.statusCode);
     return json.decode(response.body);
   }
@@ -26,7 +27,7 @@ class HttpHandler {
     var uri = Uri.http(_baseUrl, endpoint,
         {'api_key': API_KEY,
           'page': "1",
-
+          'language':"en-US"
         });
 
     return getJson(uri).then(((data)=>

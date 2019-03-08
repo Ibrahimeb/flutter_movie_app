@@ -35,7 +35,7 @@ class Media {
     release_date = map[type==MediaType.MOVIE?"release_date":"first_air_date"],
     genre_ids = map["genre_ids"].toList(),
     id = map["id"],
-    title = map["title"],
+    title = map[type==MediaType.MOVIE?"title":"name"],
     backdrop_path = map["backdrop_path"]??"",
     vote_average = map["vote_average"].toDouble();
 }
