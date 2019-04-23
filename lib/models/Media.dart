@@ -43,3 +43,7 @@ class Media {
 enum MediaType{
   MOVIE,TV
 }
+
+enum MediaTypeQuery{
+  TAB_POPULAR,TAB_TOPRATE,TAB_ON_AIR,TAB_UPCOMING
+}

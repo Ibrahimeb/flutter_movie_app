@@ -14,7 +14,7 @@ class MediaListItem extends StatelessWidget {
           Container(
               child: Stack(children: <Widget>[
             FadeInImage.assetNetwork(
-              placeholder: "assets/placeholder",
+              placeholder: "images/placeholder.jpg",
               image: _item.getBackDropUrl(),
               fit: BoxFit.cover,
               fadeInDuration: Duration(microseconds: 40),

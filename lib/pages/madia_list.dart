@@ -22,7 +22,6 @@ class _MediaListState extends State<MediaList> {
       child: ListView.builder(
         itemCount: widget._listMedia.length,
         itemBuilder: (context, index) {
-          print(widget._listMedia[index].getPosterUrl());
           return MediaListItem(widget._listMedia[index]);
         },
       ) ,
